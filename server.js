@@ -27,6 +27,9 @@ app.get('/public/css/style.css', (req, res) => {
     res.sendFile(__dirname + '/public/css/style.css');
 });
 
+app.get('/public/js/Home.js', (req, res) => {
+    res.sendFile(__dirname + '/public/js/Home.js');
+});
 
 
 app.post('/send', (req, res) =>{

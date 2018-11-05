@@ -1,11 +1,10 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const extractCSS = new ExtractTextPlugin('[name].css');
-let moduleWorks = 'catalogos';
 
 module.exports = {
   entry: {
-   "Home":['babel-polyfill', path.resolve(__dirname, 'index.js')],
+   "Home":['babel-polyfill', path.resolve(__dirname, 'src/index.js')],
   },
   output: {
     path: path.resolve(__dirname, 'public/js/'),
