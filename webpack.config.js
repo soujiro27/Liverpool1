@@ -4,7 +4,7 @@ const extractCSS = new ExtractTextPlugin('[name].css');
 
 module.exports = {
   entry: {
-   "Home":['babel-polyfill', path.resolve(__dirname, 'src/index.js')],
+    "products": ['babel-polyfill', path.resolve(__dirname, 'src/products.js')],
   },
   output: {
     path: path.resolve(__dirname, 'public/js/'),

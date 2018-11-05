@@ -386,7 +386,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 
 var bind = __webpack_require__(139);
-var isBuffer = __webpack_require__(363);
+var isBuffer = __webpack_require__(362);
 
 /*global toString:true*/
 
@@ -3496,7 +3496,7 @@ exports[DATA_VIEW] = $DataView;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(18);
-var normalizeHeaderName = __webpack_require__(365);
+var normalizeHeaderName = __webpack_require__(364);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -4943,12 +4943,12 @@ module.exports = function bind(fn, thisArg) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(18);
-var settle = __webpack_require__(366);
-var buildURL = __webpack_require__(368);
-var parseHeaders = __webpack_require__(369);
-var isURLSameOrigin = __webpack_require__(370);
+var settle = __webpack_require__(365);
+var buildURL = __webpack_require__(367);
+var parseHeaders = __webpack_require__(368);
+var isURLSameOrigin = __webpack_require__(369);
 var createError = __webpack_require__(141);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(371);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(370);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -5045,7 +5045,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(372);
+      var cookies = __webpack_require__(371);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -5130,7 +5130,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(367);
+var enhanceError = __webpack_require__(366);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -10528,15 +10528,21 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(351);
 
-var _Form = __webpack_require__(360);
+var _axios = __webpack_require__(360);
 
-var _Form2 = _interopRequireDefault(_Form);
+var _axios2 = _interopRequireDefault(_axios);
+
+var _products = __webpack_require__(379);
+
+var _products2 = _interopRequireDefault(_products);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var root = document.getElementById('root');
 
-(0, _reactDom.render)(_react2.default.createElement(_Form2.default, null), root);
+_axios2.default.get('/all').then(function (response) {
+    (0, _reactDom.render)(_react2.default.createElement(_products2.default, { data: response.data }), root);
+});
 
 /***/ }),
 /* 348 */
@@ -30028,112 +30034,10 @@ module.exports = camelize;
 /* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(67);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _axios = __webpack_require__(361);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Form = function (_Component) {
-    _inherits(Form, _Component);
-
-    function Form() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
-        _classCallCheck(this, Form);
-
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Form.__proto__ || Object.getPrototypeOf(Form)).call.apply(_ref, [this].concat(args))), _this), _this.submit = function (event) {
-            event.preventDefault();
-            var name = document.getElementById('name').value;
-            var price = document.getElementById('price').value;
-            var $form = document.querySelectorAll('input');
-
-            if (name && price && parseInt(price)) {
-                if ($form[2].files[0]) {
-                    var form = new FormData();
-                    form.append('name', $form[0].value);
-                    form.append('price', $form[1].value);
-                    form.append('file', $form[2].files[0]);
-                    form.append('nameFile', $form[2].files[0].name);
-                    _axios2.default.post('/send', form).then(function (response) {
-                        location.href = '/';
-                    });
-                } else {
-                    alert('Adjunte imagen del producto');
-                }
-            } else {
-                alert('falso');
-            }
-        }, _temp), _possibleConstructorReturn(_this, _ret);
-    }
-
-    _createClass(Form, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'form',
-                { method: 'POST', encType: 'multipart/form-data', onSubmit: this.submit },
-                _react2.default.createElement(
-                    'label',
-                    { htmlFor: 'name' },
-                    'Nombre del Producto'
-                ),
-                _react2.default.createElement('input', { type: 'text', name: 'name', id: 'name', placeholder: 'Nombre', required: true }),
-                _react2.default.createElement(
-                    'label',
-                    { htmlFor: 'price' },
-                    'Precio'
-                ),
-                _react2.default.createElement('input', { type: 'number', name: 'price', id: 'price', placeholder: '$', pattern: '[0-9]', required: true }),
-                _react2.default.createElement(
-                    'label',
-                    { htmlFor: 'file' },
-                    'Imagen del Producto'
-                ),
-                _react2.default.createElement('input', { type: 'file', name: 'file', id: 'file' }),
-                _react2.default.createElement('input', { type: 'submit', value: 'Guardar' })
-            );
-        }
-    }]);
-
-    return Form;
-}(_react.Component);
-
-exports.default = Form;
+module.exports = __webpack_require__(361);
 
 /***/ }),
 /* 361 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(362);
-
-/***/ }),
-/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30141,7 +30045,7 @@ module.exports = __webpack_require__(362);
 
 var utils = __webpack_require__(18);
 var bind = __webpack_require__(139);
-var Axios = __webpack_require__(364);
+var Axios = __webpack_require__(363);
 var defaults = __webpack_require__(97);
 
 /**
@@ -30176,14 +30080,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(143);
-axios.CancelToken = __webpack_require__(378);
+axios.CancelToken = __webpack_require__(377);
 axios.isCancel = __webpack_require__(142);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(379);
+axios.spread = __webpack_require__(378);
 
 module.exports = axios;
 
@@ -30192,7 +30096,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 363 */
+/* 362 */
 /***/ (function(module, exports) {
 
 /*!
@@ -30219,7 +30123,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 364 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30227,8 +30131,8 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(97);
 var utils = __webpack_require__(18);
-var InterceptorManager = __webpack_require__(373);
-var dispatchRequest = __webpack_require__(374);
+var InterceptorManager = __webpack_require__(372);
+var dispatchRequest = __webpack_require__(373);
 
 /**
  * Create a new instance of Axios
@@ -30305,7 +30209,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 365 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30324,7 +30228,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 366 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30357,7 +30261,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 367 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30385,7 +30289,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 368 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30458,7 +30362,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 369 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30518,7 +30422,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 370 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30593,7 +30497,7 @@ module.exports = (
 
 
 /***/ }),
-/* 371 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30636,7 +30540,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 372 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30696,7 +30600,7 @@ module.exports = (
 
 
 /***/ }),
-/* 373 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30755,18 +30659,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 374 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(18);
-var transformData = __webpack_require__(375);
+var transformData = __webpack_require__(374);
 var isCancel = __webpack_require__(142);
 var defaults = __webpack_require__(97);
-var isAbsoluteURL = __webpack_require__(376);
-var combineURLs = __webpack_require__(377);
+var isAbsoluteURL = __webpack_require__(375);
+var combineURLs = __webpack_require__(376);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -30848,7 +30752,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 375 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30875,7 +30779,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 376 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30896,7 +30800,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 377 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30917,7 +30821,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 378 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30981,7 +30885,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 379 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31013,6 +30917,75 @@ module.exports = function spread(callback) {
   };
 };
 
+
+/***/ }),
+/* 379 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(67);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Products = function (_Component) {
+    _inherits(Products, _Component);
+
+    function Products() {
+        _classCallCheck(this, Products);
+
+        return _possibleConstructorReturn(this, (Products.__proto__ || Object.getPrototypeOf(Products)).apply(this, arguments));
+    }
+
+    _createClass(Products, [{
+        key: "render",
+        value: function render() {
+
+            return _react2.default.createElement(
+                "div",
+                { className: "container" },
+                this.props.data.map(function (item) {
+                    return _react2.default.createElement(
+                        "div",
+                        { className: "product", key: item.id },
+                        _react2.default.createElement("img", { src: "" + item.nameFile }),
+                        _react2.default.createElement(
+                            "h3",
+                            null,
+                            "Producto: ",
+                            item.name
+                        ),
+                        _react2.default.createElement(
+                            "p",
+                            null,
+                            "Precio: $",
+                            item.price
+                        )
+                    );
+                })
+            );
+        }
+    }]);
+
+    return Products;
+}(_react.Component);
+
+exports.default = Products;
 
 /***/ })
 /******/ ]);
